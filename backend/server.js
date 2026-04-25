@@ -1,10 +1,14 @@
-const express= require('express');
-const dotenv= require ('dotenv');
+const express = require('express');
+const dotenv = require('dotenv');
 const cors = require('cors');
+const connectDB = require('./config/db');
 
-//load environment variables
+// Load environment variables
 dotenv.config();
-
+// Connect to MongoDB
+connectDB();
+// Import routes
+const authRoutes = require('./routes/authRoutes');
 //initialize express app 
 const app=express();
 
@@ -20,6 +24,8 @@ app.get('/',(req,res)=>{
         status:'server is running successfully!'
     });
 });
+// API Routes
+app.use('/api/auth', authRoutes);
 //server port 
 const PORT=process.env.PORT || 5000;
 
